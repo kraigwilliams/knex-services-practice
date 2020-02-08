@@ -26,6 +26,9 @@ before(()=>{
           connection: process.env.TEST_DB_URL,
         })
       })
+
+      before(() => db('blogful_articles').truncate());
+
     
       before(()=>{
         return db
@@ -38,13 +41,12 @@ before(()=>{
 
   after(()=>db.destroy());
       
-  //before(() => db('blogful_articles').truncate());
 
   
 
  describe(`getAllArticles()`, ()=>{
   it(`resolves all articles from 'blogful_articles' table`, ()=>{
-    return ArticlesService.getAllArticles()
+    return ArticlesService.getAllArticles(db)
     .then(actual =>{
       expect(actual).to.eql(testArticles)
     })
