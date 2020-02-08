@@ -73,7 +73,16 @@ afterEach(()=>db('blogful_articles').truncate())
         })
       })
     })
-
+it(`deleteArticles() removes an article from the 'blogful_articles' database by Id `,()=>{
+const articleId= 2
+return ArticlesService.deleteArticle(db,articleId)
+.then(()=> ArticlesService.getAllArticles(db))
+.then(allArticles=>{
+  //copy the test articles array without the "deleted" article
+  const expected= testArticles.filter(article=>article.id !== articleId)
+  expect(allArticles).to.eql(expected)
+})
+})
    })
    
 
