@@ -23,6 +23,13 @@ deleteArticle(knex, id){
   return knex('blogful_articles')
   .where({id})
   .delete()
+},
+
+updateArticle(knex, id,newArticleFields){
+  return knex('blogful_articles')
+  .where({id})
+  .update(newArticleFields)
+  
 }
 
 };
